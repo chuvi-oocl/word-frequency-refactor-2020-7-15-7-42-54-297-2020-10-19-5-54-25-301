@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class WordFrequencyGame {
 
@@ -23,23 +24,13 @@ public class WordFrequencyGame {
     }
 
     private List<WordFrequency> getWordFrequencies(String sentence) {
+        List<String> words = Arrays.asList(sentence.split(WHITE_SPACE_REGEX));
 
-        //split the input string with 1 to n pieces of spaces
-        String[] words = sentence.split(WHITE_SPACE_REGEX);
+        HashSet<String> distinctWords = new HashSet<>(words);
 
-        List<WordFrequency> wordFrequencies = new ArrayList<>();
-        for (String word : words) {
-            wordFrequencies.add(new WordFrequency(word, 1));
-        }
-
-        //get the map for the next step of sizing the same word
-        Map<String, List<WordFrequency>> wordFrequencyMap = getListMap(wordFrequencies);
-
-        List<WordFrequency> wordFrequencyList = new ArrayList<>();
-        for (Map.Entry<String, List<WordFrequency>> entry : wordFrequencyMap.entrySet()) {
-            wordFrequencyList.add(new WordFrequency(entry.getKey(), entry.getValue().size()));
-        }
-        return wordFrequencyList;
+        return distinctWords.stream()
+                .map(word -> new WordFrequency(word, Collections.frequency(words, word)))
+                .collect(Collectors.toList());
     }
 
     private Map<String, List<WordFrequency>> getListMap(List<WordFrequency> wordFrequencyList) {
