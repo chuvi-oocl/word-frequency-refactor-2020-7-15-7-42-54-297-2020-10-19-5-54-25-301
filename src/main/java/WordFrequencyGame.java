@@ -8,22 +8,7 @@ public class WordFrequencyGame {
 
     public String getResult(String sentence) {
         try {
-            //split the input string with 1 to n pieces of spaces
-            String[] words = sentence.split(WHITE_SPACE_REGEX);
-
-            List<WordFrequency> wordFrequencies = new ArrayList<>();
-            for (String word : words) {
-                wordFrequencies.add(new WordFrequency(word, 1));
-            }
-
-            //get the map for the next step of sizing the same word
-            Map<String, List<WordFrequency>> wordFrequencyMap = getListMap(wordFrequencies);
-
-            List<WordFrequency> wordFrequencyList = new ArrayList<>();
-            for (Map.Entry<String, List<WordFrequency>> entry : wordFrequencyMap.entrySet()) {
-                wordFrequencyList.add(new WordFrequency(entry.getKey(), entry.getValue().size()));
-            }
-            wordFrequencies = wordFrequencyList;
+            List<WordFrequency> wordFrequencies = getWordFrequencies(sentence);
 
             wordFrequencies.sort((word1, word2) -> word2.getWordCount() - word1.getWordCount());
 
@@ -35,6 +20,26 @@ public class WordFrequencyGame {
         } catch (Exception e) {
             return CALCULATE_ERROR;
         }
+    }
+
+    private List<WordFrequency> getWordFrequencies(String sentence) {
+
+        //split the input string with 1 to n pieces of spaces
+        String[] words = sentence.split(WHITE_SPACE_REGEX);
+
+        List<WordFrequency> wordFrequencies = new ArrayList<>();
+        for (String word : words) {
+            wordFrequencies.add(new WordFrequency(word, 1));
+        }
+
+        //get the map for the next step of sizing the same word
+        Map<String, List<WordFrequency>> wordFrequencyMap = getListMap(wordFrequencies);
+
+        List<WordFrequency> wordFrequencyList = new ArrayList<>();
+        for (Map.Entry<String, List<WordFrequency>> entry : wordFrequencyMap.entrySet()) {
+            wordFrequencyList.add(new WordFrequency(entry.getKey(), entry.getValue().size()));
+        }
+        return wordFrequencyList;
     }
 
     private Map<String, List<WordFrequency>> getListMap(List<WordFrequency> wordFrequencyList) {
