@@ -1,38 +1,38 @@
 import java.util.*;
 
 public class WordFrequencyGame {
-    public String getResult(String inputStr){
-        if (inputStr.split("\\s+").length==1) {
-            return inputStr + " 1";
+    public String getResult(String sentence){
+        if (sentence.split("\\s+").length==1) {
+            return sentence + " 1";
         } else {
             try {
                 //split the input string with 1 to n pieces of spaces
-                String[] arr = inputStr.split("\\s+");
+                String[] words = sentence.split("\\s+");
 
-                List<Input> inputList = new ArrayList<>();
-                for (String s : arr) {
-                    Input input = new Input(s, 1);
-                    inputList.add(input);
+                List<Input> inputs = new ArrayList<>();
+                for (String word : words) {
+                    Input input = new Input(word, 1);
+                    inputs.add(input);
                 }
 
                 //get the map for the next step of sizing the same word
-                Map<String, List<Input>> map =getListMap(inputList);
+                Map<String, List<Input>> wordFrequencyMap =getListMap(inputs);
 
-                List<Input> list = new ArrayList<>();
-                for (Map.Entry<String, List<Input>> entry : map.entrySet()){
+                List<Input> wordFrequencyList = new ArrayList<>();
+                for (Map.Entry<String, List<Input>> entry : wordFrequencyMap.entrySet()){
                     Input input = new Input(entry.getKey(), entry.getValue().size());
-                    list.add(input);
+                    wordFrequencyList.add(input);
                 }
-                inputList = list;
+                inputs = wordFrequencyList;
 
-                inputList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
+                inputs.sort((word1, word2) -> word2.getWordCount() - word1.getWordCount());
 
-                StringJoiner joiner = new StringJoiner("\n");
-                for (Input w : inputList) {
-                    String s = w.getValue() + " " +w.getWordCount();
-                    joiner.add(s);
+                StringJoiner wordFrequencyResult = new StringJoiner("\n");
+                for (Input input : inputs) {
+                    String wordFrequencyLine = input.getWord() + " " +input.getWordCount();
+                    wordFrequencyResult.add(wordFrequencyLine);
                 }
-                return joiner.toString();
+                return wordFrequencyResult.toString();
             } catch (Exception e) {
                 return "Calculate Error";
             }
@@ -40,18 +40,18 @@ public class WordFrequencyGame {
     }
 
     private Map<String,List<Input>> getListMap(List<Input> inputList) {
-        Map<String, List<Input>> map = new HashMap<>();
+        Map<String, List<Input>> listMap = new HashMap<>();
         for (Input input :  inputList){
 //       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
-            if (!map.containsKey(input.getValue())){
-                ArrayList arr = new ArrayList<>();
-                arr.add(input);
-                map.put(input.getValue(), arr);
+            if (!listMap.containsKey(input.getWord())){
+                ArrayList inputs = new ArrayList<>();
+                inputs.add(input);
+                listMap.put(input.getWord(), inputs);
             }
             else {
-                map.get(input.getValue()).add(input);
+                listMap.get(input.getWord()).add(input);
             }
         }
-        return map;
+        return listMap;
     }
 }
