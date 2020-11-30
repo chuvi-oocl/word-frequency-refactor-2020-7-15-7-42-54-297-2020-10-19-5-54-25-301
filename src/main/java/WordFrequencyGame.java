@@ -1,13 +1,18 @@
 import java.util.*;
 
 public class WordFrequencyGame {
+
+    private static final String WHITE_SPACE_REGEX = "\\s+";
+    private static final String NEW_LINE_DELIMITER = "\n";
+    private static final String CALCULATE_ERROR = "Calculate Error";
+
     public String getResult(String sentence) {
-        if (sentence.split("\\s+").length == 1) {
+        if (sentence.split(WHITE_SPACE_REGEX).length == 1) {
             return sentence + " 1";
         } else {
             try {
                 //split the input string with 1 to n pieces of spaces
-                String[] words = sentence.split("\\s+");
+                String[] words = sentence.split(WHITE_SPACE_REGEX);
 
                 List<WordFrequency> wordFrequencies = new ArrayList<>();
                 for (String word : words) {
@@ -25,13 +30,13 @@ public class WordFrequencyGame {
 
                 wordFrequencies.sort((word1, word2) -> word2.getWordCount() - word1.getWordCount());
 
-                StringJoiner wordFrequencyResult = new StringJoiner("\n");
+                StringJoiner wordFrequencyResult = new StringJoiner(NEW_LINE_DELIMITER);
                 for (WordFrequency wordFrequency : wordFrequencies) {
                     wordFrequencyResult.add(wordFrequency.buildWordFrequencyLine());
                 }
                 return wordFrequencyResult.toString();
             } catch (Exception e) {
-                return "Calculate Error";
+                return CALCULATE_ERROR;
             }
         }
     }
