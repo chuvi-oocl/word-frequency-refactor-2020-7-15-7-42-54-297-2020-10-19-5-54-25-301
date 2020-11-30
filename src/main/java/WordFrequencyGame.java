@@ -13,11 +13,7 @@ public class WordFrequencyGame {
 
             wordFrequencies.sort((word1, word2) -> word2.getWordCount() - word1.getWordCount());
 
-            StringJoiner wordFrequencyResult = new StringJoiner(NEW_LINE_DELIMITER);
-            for (WordFrequency wordFrequency : wordFrequencies) {
-                wordFrequencyResult.add(wordFrequency.buildWordFrequencyLine());
-            }
-            return wordFrequencyResult.toString();
+            return wordFrequencies.stream().map(WordFrequency::buildWordFrequencyLine).collect(Collectors.joining(NEW_LINE_DELIMITER));
         } catch (Exception exception) {
             return CALCULATE_ERROR;
         }
