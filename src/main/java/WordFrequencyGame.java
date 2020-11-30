@@ -7,7 +7,7 @@ public class WordFrequencyGame {
     private static final String NEW_LINE_DELIMITER = "\n";
     private static final String CALCULATE_ERROR = "Calculate Error";
 
-    public String getResult(String sentence) {
+    public String getWordFrequency(String sentence) {
         try {
             List<WordFrequency> wordFrequencies = getWordFrequencies(sentence);
 
