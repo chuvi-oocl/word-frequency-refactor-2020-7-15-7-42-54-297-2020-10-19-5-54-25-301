@@ -40,7 +40,6 @@ public class WordFrequencyGame {
     private Map<String, List<WordFrequency>> getListMap(List<WordFrequency> wordFrequencyList) {
         Map<String, List<WordFrequency>> listMap = new HashMap<>();
         for (WordFrequency wordFrequency : wordFrequencyList) {
-//       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
             if (!listMap.containsKey(wordFrequency.getWord())) {
                 ArrayList inputs = new ArrayList<>();
                 inputs.add(wordFrequency);
