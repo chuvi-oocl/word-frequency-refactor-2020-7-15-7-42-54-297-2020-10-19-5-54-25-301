@@ -18,7 +18,7 @@ public class WordFrequencyGame {
                 wordFrequencyResult.add(wordFrequency.buildWordFrequencyLine());
             }
             return wordFrequencyResult.toString();
-        } catch (Exception e) {
+        } catch (Exception exception) {
             return CALCULATE_ERROR;
         }
     }
