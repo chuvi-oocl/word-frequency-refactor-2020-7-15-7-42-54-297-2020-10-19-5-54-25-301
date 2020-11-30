@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class WordFrequencyGame {
-    public String getResult(String sentence){
-        if (sentence.split("\\s+").length==1) {
+    public String getResult(String sentence) {
+        if (sentence.split("\\s+").length == 1) {
             return sentence + " 1";
         } else {
             try {
@@ -16,10 +16,10 @@ public class WordFrequencyGame {
                 }
 
                 //get the map for the next step of sizing the same word
-                Map<String, List<Input>> wordFrequencyMap =getListMap(inputs);
+                Map<String, List<Input>> wordFrequencyMap = getListMap(inputs);
 
                 List<Input> wordFrequencyList = new ArrayList<>();
-                for (Map.Entry<String, List<Input>> entry : wordFrequencyMap.entrySet()){
+                for (Map.Entry<String, List<Input>> entry : wordFrequencyMap.entrySet()) {
                     Input input = new Input(entry.getKey(), entry.getValue().size());
                     wordFrequencyList.add(input);
                 }
@@ -29,7 +29,7 @@ public class WordFrequencyGame {
 
                 StringJoiner wordFrequencyResult = new StringJoiner("\n");
                 for (Input input : inputs) {
-                    String wordFrequencyLine = input.getWord() + " " +input.getWordCount();
+                    String wordFrequencyLine = input.getWord() + " " + input.getWordCount();
                     wordFrequencyResult.add(wordFrequencyLine);
                 }
                 return wordFrequencyResult.toString();
@@ -39,16 +39,15 @@ public class WordFrequencyGame {
         }
     }
 
-    private Map<String,List<Input>> getListMap(List<Input> inputList) {
+    private Map<String, List<Input>> getListMap(List<Input> inputList) {
         Map<String, List<Input>> listMap = new HashMap<>();
-        for (Input input :  inputList){
+        for (Input input : inputList) {
 //       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
-            if (!listMap.containsKey(input.getWord())){
+            if (!listMap.containsKey(input.getWord())) {
                 ArrayList inputs = new ArrayList<>();
                 inputs.add(input);
                 listMap.put(input.getWord(), inputs);
-            }
-            else {
+            } else {
                 listMap.get(input.getWord()).add(input);
             }
         }
