@@ -22,9 +22,7 @@ public class WordFrequencyGame {
     private List<WordFrequency> getWordFrequencies(String sentence) {
         List<String> words = Arrays.asList(sentence.split(WHITE_SPACE_REGEX));
 
-        HashSet<String> distinctWords = new HashSet<>(words);
-
-        return distinctWords.stream()
+        return new HashSet<>(words).stream()
                 .map(word -> new WordFrequency(word, Collections.frequency(words, word)))
                 .collect(Collectors.toList());
     }
